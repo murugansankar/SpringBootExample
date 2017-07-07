@@ -1,0 +1,8 @@
+---
+applications:
+- name: cf-spring-form
+  memory: 900M
+  instances: 1
+  random-route: true
+  path: target/Form-0.0.2.BUILD-SNAPSHOT.jar
+  

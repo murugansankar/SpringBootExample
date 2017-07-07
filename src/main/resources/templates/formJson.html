@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	</head>
+<body>
+
+<h1>Spring Boot example by Murugan</h1>
+<nav>
+<a th:href="@{/}">Home</a>
+		<a th:href="@{/view}">View</a>
+				<a th:href="@{/delete}">Delete Record</a>
+		
+		</nav>
+<div id="form">
+<form action="/formJsonSubmit">
+   
+    Name: <input type="text" name="name" id="name" />
+     Email: <input type="text" name="email" id="email" />
+      Favcolor: <input type="text" name="favc" id="favc" />
+    <input type="submit" value="Submit" />
+</form>
+</div>
+<div id="result"></div>
+<script>
+$('form').submit(function(e) {
+	
+
+	var domain = {
+		name : $("#name").val(),
+		email : $("#email").val(),
+		favc : $("#favc").val()
+	}
+
+	e.preventDefault();
+
+	
+	$.ajax({
+	    type: "POST",
+	    url: "/formJsonSubmit",
+	    // The key needs to match your method's input parameter (case-sensitive).
+	    data: JSON.stringify(domain),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    success: function(response){
+	    	   $('#result').html("");
+	    	   var myJSON = JSON.stringify(response);
+	    	   document.getElementById('form').style.display = 'none'
+	    	   $('#result').html(response.toString());
+	    	  },
+	    failure: function(errMsg) {
+	        alert(errMsg);
+	    }
+	});
+	
+});
+</script>
+ 
+
+</body>
+</html>
